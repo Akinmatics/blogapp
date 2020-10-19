@@ -1,10 +1,12 @@
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mywebsite.Data;
 using mywebsite.Models;
 
 namespace mywebsite.Controllers
 {
+   [Authorize]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -41,11 +43,12 @@ namespace mywebsite.Controllers
             var page = _dbContext.Pages.FirstOrDefault(x => x.Title == title);
 
             if(page == null)
-            {
+            { 
                 return View("Error");
             }
 
             page.Content = content;
+            
             _dbContext.SaveChanges();
 
             return RedirectToAction(nameof(Index));

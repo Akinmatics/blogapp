@@ -1,4 +1,6 @@
-
+@model Page
 @{
     ViewData["Title"] = "About me";
 }
+
+@Html.Raw(Model?.Content)
